@@ -1,3 +1,5 @@
+name: rewards
+
 services:
   db:
     image: postgres:18
