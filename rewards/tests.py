@@ -11,12 +11,12 @@ class UserModelTest(TestCase):
 
 
 class ProfileEndpointTest(APITestCase):
-    def test_profile_requires_auth(self):
+    def test_requires_auth(self):
         response = self.client.get("/api/profile/")
         self.assertEqual(response.status_code, 401)
 
-    def test_profile_returns_user_data(self):
         user = User.objects.create_user(username="Vasya", password="123")
+    def test_returns_user_data(self):
         self.client.force_authenticate(user=user)
         response = self.client.get("/api/profile/")
         self.assertEqual(response.status_code, 200)
