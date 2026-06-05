@@ -10,3 +10,13 @@ class ProfileView(APIView):
     def get(self, request):
         serializer = ProfileSerializer(request.user)
         return Response(serializer.data)
+
+
+class RewardsLogView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        serializer = RewardsLogSerializer(
+            RewardLog.objects.filter(user=request.user), many=True
+        )
+        return Response(serializer.data)
