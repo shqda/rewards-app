@@ -1,5 +1,6 @@
 from django.test import TestCase
-from .models import User
+
+from .models import RewardLog, User
 from rest_framework.test import APITestCase
 
 
