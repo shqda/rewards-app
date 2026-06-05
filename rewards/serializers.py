@@ -7,3 +7,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = User
         fields = ["username", "email", "coins"]
         read_only_fields = ["coins"]
+
+class RewardsLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RewardLog
+        fields = ["amount", "given_at"]
