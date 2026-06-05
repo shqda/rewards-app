@@ -15,8 +15,8 @@ class ProfileEndpointTest(APITestCase):
         response = self.client.get("/api/profile/")
         self.assertEqual(response.status_code, 401)
 
-        user = User.objects.create_user(username="Vasya", password="123")
     def test_returns_user_data(self):
+        user = User.objects.create_user(username="Vasya")
         self.client.force_authenticate(user=user)
         response = self.client.get("/api/profile/")
         self.assertEqual(response.status_code, 200)
