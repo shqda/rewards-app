@@ -3,6 +3,7 @@ from rest_framework.views import APIView, Response
 from .serializers import ProfileSerializer, RewardsLogSerializer
 from .models import RewardLog
 
+REQUESTED_REWARD_AMOUNT = 10
 
 
 class ProfileView(APIView):
@@ -21,7 +22,6 @@ class RewardsLogView(APIView):
             RewardLog.objects.filter(user=request.user), many=True
         )
         return Response(serializer.data)
-
 
 class ScheduledRewardView(APIView):
     permission_classes = [IsAuthenticated]
@@ -44,8 +44,10 @@ class ScheduledRewardView(APIView):
             )
         reward = ScheduledReward.objects.create(
             user=request.user,
-            amount=10,
+            amount=REQUESTED_REWARD_AMOUNT,
             execute_at=timezone.now() + timedelta(minutes=5),
         )
         give_reward.apply_async(args=[reward.id], eta=reward.execute_at)
         return Response({"status": "scheduled"}, status=201)
+
+
