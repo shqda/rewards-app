@@ -31,4 +31,5 @@ urlpatterns = [
     path("api/token/verify/", TokenVerifyView.as_view(), name="token_verify"),
     path("api/profile/", ProfileView.as_view(), name="profile"),
     path("api/rewards/", RewardsLogView.as_view(), name="rewards"),
+    path("api/rewards/request/", ScheduledRewardView.as_view(), name="request"),
 ]
