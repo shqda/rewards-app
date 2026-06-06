@@ -1,5 +1,5 @@
-from rest_framework import serializers
-from .models import User, RewardLog
+from rest_framework import fields, serializers
+from .models import ScheduledReward, User, RewardLog
 
 
 class ProfileSerializer(serializers.ModelSerializer):

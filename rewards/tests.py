@@ -1,7 +1,10 @@
-from django.test import TestCase
+from datetime import timedelta
+from django.utils import timezone
+from django.test import TestCase, override_settings
 
-from .models import RewardLog, User
+from .models import RewardLog, ScheduledReward, User
 from rest_framework.test import APITestCase
+from .views import REQUESTED_REWARD_AMOUNT
 
 
 class UserModelTest(TestCase):

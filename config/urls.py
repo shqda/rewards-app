@@ -22,7 +22,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
-from rewards.views import ProfileView, RewardsLogView
+from rewards.views import ProfileView, RewardsLogView, ScheduledRewardView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
