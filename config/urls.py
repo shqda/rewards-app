@@ -23,6 +23,11 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 from rewards.views import ProfileView, RewardsLogView, ScheduledRewardView
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularSwaggerView,
+    SpectacularRedocView,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -32,4 +37,11 @@ urlpatterns = [
     path("api/profile/", ProfileView.as_view(), name="profile"),
     path("api/rewards/", RewardsLogView.as_view(), name="rewards"),
     path("api/rewards/request/", ScheduledRewardView.as_view(), name="request"),
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path(
+        "api/docs/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path("api/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
 ]
