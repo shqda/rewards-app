@@ -25,6 +25,7 @@ class ProfileEndpointTest(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["username"], "Vasya")
 
+
 class RewardsEndpointTest(APITestCase):
     def test_requires_auth(self):
         response = self.client.get("/api/rewards/")
@@ -47,7 +48,22 @@ class RewardsEndpointTest(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]["amount"], 33)
-
-
         
-        
+    @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
+    def test_first_request_success(self):
+        user = User.objects.create_user(username="Vasya")
+        self.client.force_authenticate(user=user)
+        response = self.client.post("/api/rewards/request/")
+        user.refresh_from_db()
+        self.assertEqual(user.coins, REQUESTED_REWARD_AMOUNT)
+        self.assertEqual(response.status_code, 201)
+
+    def test_second_request_fail(self):
+        user = User.objects.create_user(username="Vasya")
+        self.client.force_authenticate(user=user)
+        ScheduledReward.objects.create(
+            user=user, amount=10, execute_at=timezone.now() + timedelta(hours=7)
+        )
+        response = self.client.post("/api/rewards/request/")
+        self.assertEqual(response.status_code, 429)
+
