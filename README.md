@@ -16,7 +16,7 @@
 
 ## API documentation
 
-- Swagger UI — `http://localhost:8000/api/docs/`
+   Swagger UI — `http://localhost:8000/api/docs/`
 
 ## Migrations
 
