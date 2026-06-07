@@ -1,5 +1,4 @@
 from datetime import timedelta
-from os.path import exists
 from django.utils import timezone
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView, Response
@@ -27,6 +26,7 @@ class RewardsLogView(APIView):
         )
         return Response(serializer.data)
 
+
 class ScheduledRewardView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -53,5 +53,3 @@ class ScheduledRewardView(APIView):
         )
         give_reward.apply_async(args=[reward.id], eta=reward.execute_at)
         return Response({"status": "scheduled"}, status=201)
-
-
