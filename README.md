@@ -23,5 +23,5 @@
 Migrations run automatically on `gunicorn` startup. To run them manually:
 
 ```bash
-docker compose run --rm web python manage.py migrate
+docker compose run --rm gunicorn python manage.py migrate
 ```
